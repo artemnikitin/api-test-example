@@ -18,6 +18,8 @@ dependencies {
 test {
     testLogging {
         showStandardStreams = true
+        events 'passed', 'skipped', 'failed'
     }
+    systemProperties 'file.encoding': 'UTF-8'
     maxParallelForks = Runtime.getRuntime().availableProcessors()
 }
