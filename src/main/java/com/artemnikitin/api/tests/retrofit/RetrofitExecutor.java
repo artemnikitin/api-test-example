@@ -1,5 +1,6 @@
 package com.artemnikitin.api.tests.retrofit;
 
+import com.artemnikitin.api.tests.config.Config;
 import com.artemnikitin.api.tests.model.VulnersRequest;
 import com.artemnikitin.api.tests.model.VulnersResponse;
 
@@ -12,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitExecutor {
 
     private static final VulnersRetrofitClient client = new Retrofit.Builder()
-            .baseUrl("https://vulners.com")
+            .baseUrl(Config.getHost())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(VulnersRetrofitClient.class);
