@@ -20,4 +20,17 @@ public class Config {
             return cfg.getString("api-tests.vulners.host");
     }
 
+    public static String getUrl() {
+        String env = System.getenv("VULNERS_URL");
+        String property = System.getProperty("vulners.url", "");
+        if (env != null) {
+            return env;
+        } else if (!property.equals("")) {
+            return property;
+        } else {
+            com.typesafe.config.Config config = cfg.resolve();
+            return config.getString("api-tests.vulners.url");
+        }
+    }
+
 }
