@@ -10,25 +10,27 @@ public class Config {
             new File("api-tests.conf")).resolve();
 
     public static String getHost() {
-        String env = System.getenv("VULNERS_HOST");
-        String property = System.getProperty("vulners.host", "");
-        if (env != null)
-            return env;
-        else if (!property.equals(""))
-            return property;
-        else
-            return cfg.getString("api-tests.vulners.host");
+        return get("VULNERS_HOST");
     }
 
     public static String getUrl() {
-        String env = System.getenv("VULNERS_URL");
-        String property = System.getProperty("vulners.url", "");
-        if (env != null)
+        return get("VULNERS_URL");
+    }
+
+    private static String get(String text) {
+        String env = System.getenv(text);
+        String property = System.getProperty(toLower(text), "");
+        if (env != null && !env.equals(""))
             return env;
         else if (!property.equals(""))
             return property;
         else
-            return cfg.getString("api-tests.vulners.url");
+            return cfg.getString("api-tests." + toLower(text));
+    }
+
+    private static String toLower(String text) {
+        if (text == null) return "";
+        return text.toLowerCase().replace("_", ".");
     }
 
 }
