@@ -1,9 +1,14 @@
-package com.artemnikitin.api.tests.retrofit
+package com.artemnikitin.api.tests.executor.retrofit
 
+import com.artemnikitin.api.tests.executor.Executor
 import com.artemnikitin.api.tests.model.VulnersRequest
+import spock.lang.Shared
 import spock.lang.Specification
 
-class GetVulnerabilitiesTest extends Specification {
+class GetVulnerabilitiesRetrofitTest extends Specification {
+
+    @Shared
+    Executor client = new RetrofitExecutor()
 
     def "For request with vulnerable packages list of vulnerabilities should be returned"() {
         given:
@@ -16,13 +21,13 @@ class GetVulnerabilitiesTest extends Specification {
         request.packages = packages
 
         when:
-        def response = RetrofitExecutor.getResponse(request)
+        def response = client.getResponse(request)
 
         then:
-        response.code() == 200
-        response.body().result == "OK"
-        response.body().data.cvelist.size() > 0
-        response.body().data.reasons.size() > 0
+        response.statusCode == 200
+        response.body.result == "OK"
+        response.body.data.cvelist.size() > 0
+        response.body.data.reasons.size() > 0
     }
 
     def "With empty request, error should be returned"() {
@@ -30,12 +35,12 @@ class GetVulnerabilitiesTest extends Specification {
         def request = new VulnersRequest()
 
         when:
-        def response = RetrofitExecutor.getResponse(request)
+        def response = client.getResponse(request)
 
         then:
-        response.code() == 200
-        response.body().result == "ERROR"
-        response.body().data.error.contains("Missing parameters")
+        response.statusCode == 200
+        response.body.result == "ERROR"
+        response.body.data.error.contains("Missing parameters")
     }
 
     def "With unsupported OS, error should be returned"() {
@@ -46,12 +51,12 @@ class GetVulnerabilitiesTest extends Specification {
         request.setPackages(new ArrayList<>())
 
         when:
-        def response = RetrofitExecutor.getResponse(request)
+        def response = client.getResponse(request)
 
         then:
-        response.code() == 200
-        response.body().result == "ERROR"
-        response.body().data.error.contains("Unknown operation system")
+        response.statusCode == 200
+        response.body.result == "ERROR"
+        response.body.data.error.contains("Unknown operation system")
     }
 
 }

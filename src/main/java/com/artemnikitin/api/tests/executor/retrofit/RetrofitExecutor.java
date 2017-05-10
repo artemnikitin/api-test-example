@@ -1,25 +1,28 @@
-package com.artemnikitin.api.tests.retrofit;
+package com.artemnikitin.api.tests.executor.retrofit;
 
-import com.artemnikitin.api.tests.config.Config;
+import com.artemnikitin.api.tests.executor.Executor;
 import com.artemnikitin.api.tests.model.VulnersRequest;
 import com.artemnikitin.api.tests.model.VulnersResponse;
 
 import java.io.IOException;
 
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitExecutor {
+public class RetrofitExecutor implements Executor {
 
-    private static final VulnersRetrofitClient client = new Retrofit.Builder()
-            .baseUrl(Config.getHost())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(VulnersRetrofitClient.class);
+    private final VulnersRetrofitClient client;
 
-    public static Response<VulnersResponse> getResponse(VulnersRequest request) throws IOException {
-        return client.getVulnerabilities(request).execute();
+    public RetrofitExecutor() {
+        client = Executor.getDefaultRetrofitClient();
+    }
+
+    public RetrofitExecutor(VulnersRetrofitClient client) {
+        this.client = client;
+    }
+
+    public VulnersResponse getResponse(VulnersRequest request) throws IOException {
+        Response<VulnersResponse.VulnersJson> response = client.getVulnerabilities(request).execute();
+        return new VulnersResponse(response.code(), response.body());
     }
 
 }

@@ -1,4 +1,4 @@
-package com.artemnikitin.api.tests.retrofit;
+package com.artemnikitin.api.tests.executor.retrofit;
 
 import com.artemnikitin.api.tests.model.VulnersRequest;
 import com.artemnikitin.api.tests.model.VulnersResponse;
@@ -15,6 +15,6 @@ public interface VulnersRetrofitClient {
             "Content-Type: application/json"
     })
     @POST("/api/v3/audit/audit/")
-    Call<VulnersResponse> getVulnerabilities(@Body VulnersRequest request);
+    Call<VulnersResponse.VulnersJson> getVulnerabilities(@Body VulnersRequest request);
 
 }
