@@ -2,14 +2,10 @@ package com.artemnikitin.api.tests.executor.okhttp
 
 import com.artemnikitin.api.tests.executor.Executor
 import com.artemnikitin.api.tests.model.VulnersRequest
-import com.google.gson.Gson
 import spock.lang.Shared
 import spock.lang.Specification
 
 class GetVulnerabilitiesOkHttpTest extends Specification {
-
-    @Shared
-    Gson gson = new Gson()
 
     @Shared
     Executor client = new OkHttpExecutor()

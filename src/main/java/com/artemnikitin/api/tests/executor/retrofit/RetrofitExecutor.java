@@ -3,17 +3,16 @@ package com.artemnikitin.api.tests.executor.retrofit;
 import com.artemnikitin.api.tests.executor.Executor;
 import com.artemnikitin.api.tests.model.VulnersRequest;
 import com.artemnikitin.api.tests.model.VulnersResponse;
+import retrofit2.Response;
 
 import java.io.IOException;
-
-import retrofit2.Response;
 
 public class RetrofitExecutor implements Executor {
 
     private final VulnersRetrofitClient client;
 
     public RetrofitExecutor() {
-        client = Executor.getDefaultRetrofitClient();
+        client = Executor.getDefaultRetrofitClient().create(VulnersRetrofitClient.class);
     }
 
     public RetrofitExecutor(VulnersRetrofitClient client) {

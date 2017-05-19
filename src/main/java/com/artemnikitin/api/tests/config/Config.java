@@ -10,14 +10,14 @@ public class Config {
             new File("api-tests.conf")).resolve();
 
     public static String getHost() {
-        return get("VULNERS_HOST");
+        return getValueFromDiffSources("VULNERS_HOST");
     }
 
     public static String getUrl() {
-        return get("VULNERS_URL");
+        return getValueFromDiffSources("VULNERS_URL");
     }
 
-    private static String get(String text) {
+    private static String getValueFromDiffSources(String text) {
         String env = System.getenv(text);
         String property = System.getProperty(toLower(text), "");
         if (env != null && !env.equals(""))

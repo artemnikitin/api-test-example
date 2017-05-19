@@ -1,19 +1,13 @@
 package com.artemnikitin.api.tests.executor.okhttp;
 
-import com.google.gson.Gson;
-
 import com.artemnikitin.api.tests.config.Config;
 import com.artemnikitin.api.tests.executor.Executor;
 import com.artemnikitin.api.tests.model.VulnersRequest;
 import com.artemnikitin.api.tests.model.VulnersResponse;
+import com.google.gson.Gson;
+import okhttp3.*;
 
 import java.io.IOException;
-
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class OkHttpExecutor implements Executor {
 
