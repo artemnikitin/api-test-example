@@ -308,14 +308,14 @@ public class VulnersResponse {
 
         public class Cvss {
 
-            private int score;
+            private double score;
             private String vector;
 
-            public int getScore() {
+            public double getScore() {
                 return score;
             }
 
-            public void setScore(int score) {
+            public void setScore(double score) {
                 this.score = score;
             }
 
@@ -329,18 +329,27 @@ public class VulnersResponse {
 
             @Override
             public boolean equals(Object o) {
-                if (this == o) return true;
-                if (o == null || getClass() != o.getClass()) return false;
+                if (this == o) {
+                    return true;
+                }
+                if (o == null || getClass() != o.getClass()) {
+                    return false;
+                }
 
                 Cvss cvss = (Cvss) o;
 
-                if (score != cvss.score) return false;
+                if (Double.compare(cvss.score, score) != 0) {
+                    return false;
+                }
                 return vector != null ? vector.equals(cvss.vector) : cvss.vector == null;
             }
 
             @Override
             public int hashCode() {
-                int result = score;
+                int result;
+                long temp;
+                temp = Double.doubleToLongBits(score);
+                result = (int) (temp ^ (temp >>> 32));
                 result = 31 * result + (vector != null ? vector.hashCode() : 0);
                 return result;
             }
@@ -348,9 +357,9 @@ public class VulnersResponse {
             @Override
             public String toString() {
                 return "Cvss{" +
-                        "score=" + score +
-                        ", vector='" + vector + '\'' +
-                        '}';
+                    "score=" + score +
+                    ", vector='" + vector + '\'' +
+                    '}';
             }
 
         }
