@@ -6,7 +6,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.squareup.okhttp3:okhttp:3.14.1'
+    compile 'com.squareup.okhttp3:okhttp:4.0.1'
     compile 'com.squareup.okio:okio:2.2.2'
     compile 'com.squareup.retrofit2:retrofit:2.5.0'
     compile 'com.squareup.retrofit2:converter-gson:2.5.0'
