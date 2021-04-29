@@ -1,0 +1,15 @@
+version: 2
+updates:
+- package-ecosystem: gradle
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: org.codehaus.groovy:groovy-all
+    versions:
+    - 3.0.7
+  - dependency-name: com.squareup.okhttp3:okhttp
+    versions:
+    - 4.9.0
